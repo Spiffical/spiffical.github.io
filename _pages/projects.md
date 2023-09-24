@@ -2,7 +2,7 @@
 layout: page
 title: projects
 permalink: /projects/
-description: (this page is under construction... it's still just a template)
+description: (this page is under construction...)
 nav: true
 nav_order: 2
 display_categories: [work, fun]
@@ -10,6 +10,7 @@ horizontal: false
 ---
 
 <!-- pages/projects.md -->
+{% if false %} <!-- temporarily here to prevent projects from loading on page -->
 <div class="projects">
 {%- if site.enable_project_categories and page.display_categories %}
   <!-- Display categorized projects -->
@@ -56,3 +57,4 @@ horizontal: false
   {%- endif -%}
 {%- endif -%}
 </div>
+{% endif %}
