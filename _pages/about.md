@@ -9,7 +9,8 @@ profile:
   image: prof_pic.jpg
   image_circular: true # crops the image to make it circular
   address: >
-    <p>Office: Rm. 407, Elliott Building</p>
+    <p>Office: Rm. 407 Elliott Building</p>
+    <p>Elliott Building</p>
     <p>University of Victoria</p>
     <p>Victoria, BC</p>
 
@@ -18,9 +19,4 @@ latest_posts: false  # includes a list of the newest posts
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
-Hello world. Hello universe. another test.
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
-
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Hello there! I'm a Ph.D. Candidate at the University of Victoria with an interest in artificial intelligence, stellar astrophysics, and especially the intersection of both. I am currently being supervised by [Dr. Kim Venn](https://www.uvic.ca/research/centres/arc/people/faculty/venn-kim.php) and [Dr. Sébastien Fabbro](https://astroherzberg.org/people/sebastien-fabbro/) on several exciting [projects](/projects). I also love [teaching](/teaching) and sharing my passions through public outreach. Outside of academia, I love the following things and more: rock climbing, hiking, outdoor adventures, cooking pizza from scratch, music festivals, reading, Arduino, playing piano, snowboarding, surfing, and hanging with my cats.
