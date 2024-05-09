@@ -1,9 +1,9 @@
 ---
 layout: page
-title: project 3
-description: a project that redirects to another website
-img: assets/img/7.jpg
-redirect: https://unsplash.com
+title: DanceCam
+description: mitigating atmospheric turbulence in wide-field astronomical imaging
+img: assets/img/dancecam_logo.png
+redirect: https://dancecam.info
 importance: 3
 category: work
 ---

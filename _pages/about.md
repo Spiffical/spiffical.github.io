@@ -9,8 +9,7 @@ profile:
   image: prof_pic.jpg
   image_circular: true # crops the image to make it circular
   address: >
-    <p>Office: Rm. 407</p>
-    <p>Elliott Building</p>
+    <p>Ph.D. Graduate</p>
     <p>University of Victoria</p>
     <p>Victoria, BC</p>
 
@@ -19,4 +18,4 @@ latest_posts: false  # includes a list of the newest posts
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
-Hello there! I'm a Ph.D. Candidate at the University of Victoria with an interest in artificial intelligence, stellar astrophysics, and especially the intersection of both. I am currently being supervised by [Dr. Kim Venn](https://www.uvic.ca/research/centres/arc/people/faculty/venn-kim.php) and [Dr. Sébastien Fabbro](https://astroherzberg.org/people/sebastien-fabbro/) on several exciting [projects](/projects). I also love [teaching](/teaching) and sharing my passions through public outreach. Outside of academia, I love the following things and more: rock climbing, hiking, outdoor adventures, cooking pizza from scratch, music festivals, reading, Arduino, playing piano, snowboarding, surfing, and hanging with my cats.
+Hello there! I recently graduated with a Ph.D. from the University of Victoria where I focused on artificial intelligence, stellar astrophysics, and especially the intersection of both. I was supervised by [Dr. Kim Venn](https://www.uvic.ca/research/centres/arc/people/faculty/venn-kim.php) and [Dr. Sébastien Fabbro](https://astroherzberg.org/people/sebastien-fabbro/) on several exciting [projects](/projects). I love [teaching](/teaching) and sharing my passions through public outreach. Outside of academia, I love the following things and more: rock climbing, hiking, outdoor adventures, cooking pizza from scratch, music festivals, reading, Arduino, playing piano, snowboarding, surfing, hackathons, and hanging with my cats. I am currently looking for a job outside of academia where I can continue applying my skills in artificial intelligence and machine learning.

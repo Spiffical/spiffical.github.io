@@ -2,6 +2,7 @@ github_users:
   - spiffical
 
 github_repos:
+  - DanceCam/dancelibpublic
   - astroai/StarUnLink
   - spiffical/StarNet
   - spiffical/ssl-galaxy-project
