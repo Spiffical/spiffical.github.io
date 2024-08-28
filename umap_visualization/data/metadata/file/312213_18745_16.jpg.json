@@ -1,0 +1,18 @@
+{
+    "index": "899",
+    "image_id": "312213",
+    "box_id": "18745",
+    "class_id": "16",
+    "filename": "312213_18745_16.jpg",
+    "xmin": "310.7099914550781",
+    "ymin": "25.809999465942383",
+    "xmax": "639.0",
+    "ymax": "472.80999755859375",
+    "category": "Cat",
+    "description": "312213",
+    "permalink": "N/A",
+    "tags": [
+        "Cat"
+    ],
+    "valid": true
+}

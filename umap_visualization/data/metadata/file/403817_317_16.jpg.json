@@ -1,0 +1,18 @@
+{
+    "index": "25",
+    "image_id": "403817",
+    "box_id": "317",
+    "class_id": "16",
+    "filename": "403817_317_16.jpg",
+    "xmin": "57.5099983215332",
+    "ymin": "47.58000183105469",
+    "xmax": "331.07000732421875",
+    "ymax": "370.55999755859375",
+    "category": "Cat",
+    "description": "403817",
+    "permalink": "N/A",
+    "tags": [
+        "Cat"
+    ],
+    "valid": true
+}

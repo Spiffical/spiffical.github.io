@@ -1,0 +1,18 @@
+{
+    "index": "1042",
+    "image_id": "193674",
+    "box_id": "22050",
+    "class_id": "17",
+    "filename": "193674_22050_17.jpg",
+    "xmin": "403.2549896240234",
+    "ymin": "162.7100067138672",
+    "xmax": "463.2549896240234",
+    "ymax": "337.19000244140625",
+    "category": "Dog",
+    "description": "193674",
+    "permalink": "N/A",
+    "tags": [
+        "Dog"
+    ],
+    "valid": true
+}

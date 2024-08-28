@@ -1,0 +1,18 @@
+{
+    "index": "1151",
+    "image_id": "431876",
+    "box_id": "24382",
+    "class_id": "18",
+    "filename": "431876_24382_18.jpg",
+    "xmin": "173.0500030517578",
+    "ymin": "362.5799865722656",
+    "xmax": "406.8999938964844",
+    "ymax": "545.6099853515625",
+    "category": "Horse",
+    "description": "431876",
+    "permalink": "N/A",
+    "tags": [
+        "Horse"
+    ],
+    "valid": true
+}

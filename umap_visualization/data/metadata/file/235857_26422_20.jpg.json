@@ -1,0 +1,18 @@
+{
+    "index": "1237",
+    "image_id": "235857",
+    "box_id": "26422",
+    "class_id": "20",
+    "filename": "235857_26422_20.jpg",
+    "xmin": "52.220001220703125",
+    "ymin": "113.5999984741211",
+    "xmax": "320.5599975585937",
+    "ymax": "276.5899963378906",
+    "category": "Cow",
+    "description": "235857",
+    "permalink": "N/A",
+    "tags": [
+        "Cow"
+    ],
+    "valid": true
+}

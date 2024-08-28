@@ -1,0 +1,18 @@
+{
+    "index": "1047",
+    "image_id": "240940",
+    "box_id": "22451",
+    "class_id": "16",
+    "filename": "240940_22451_16.jpg",
+    "xmin": "118.18000030517578",
+    "ymin": "306.489990234375",
+    "xmax": "202.8999938964844",
+    "ymax": "492.510009765625",
+    "category": "Cat",
+    "description": "240940",
+    "permalink": "N/A",
+    "tags": [
+        "Cat"
+    ],
+    "valid": true
+}

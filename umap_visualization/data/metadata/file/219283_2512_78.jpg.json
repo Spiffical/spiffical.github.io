@@ -1,0 +1,18 @@
+{
+    "index": "154",
+    "image_id": "219283",
+    "box_id": "2512",
+    "class_id": "78",
+    "filename": "219283_2512_78.jpg",
+    "xmin": "177.0399932861328",
+    "ymin": "217.33999633789065",
+    "xmax": "308.2799987792969",
+    "ymax": "387.5299987792969",
+    "category": "Teddy",
+    "description": "219283",
+    "permalink": "N/A",
+    "tags": [
+        "Teddy"
+    ],
+    "valid": true
+}

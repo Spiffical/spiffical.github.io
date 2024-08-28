@@ -1,0 +1,18 @@
+{
+    "index": "404",
+    "image_id": "269196",
+    "box_id": "7939",
+    "class_id": "19",
+    "filename": "269196_7939_19.jpg",
+    "xmin": "397.3999938964844",
+    "ymin": "146.8800048828125",
+    "xmax": "639.0",
+    "ymax": "426.0",
+    "category": "Sheep",
+    "description": "269196",
+    "permalink": "N/A",
+    "tags": [
+        "Sheep"
+    ],
+    "valid": true
+}

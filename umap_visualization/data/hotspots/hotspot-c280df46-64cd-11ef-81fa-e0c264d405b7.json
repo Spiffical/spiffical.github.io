@@ -1,0 +1,20 @@
+[
+    {
+        "images": [
+            43,
+            82,
+            289,
+            298,
+            332,
+            533,
+            573,
+            825,
+            883,
+            888,
+            889
+        ],
+        "img": "ICLISTENHF1253_20221102T033500.000Z_20221102T034000.000Z-OD-spect_plotRes.png",
+        "layout": "inception_vectors",
+        "label": "Cluster 1"
+    }
+]
