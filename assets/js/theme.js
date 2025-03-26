@@ -1,6 +1,7 @@
 // Has to be in the head tag, otherwise a flicker effect will occur.
 
 let toggleTheme = (theme) => {
+  transTheme(); // Only apply transition when manually toggling
   if (theme == "dark") {
     setTheme("light");
   } else {
@@ -9,13 +10,9 @@ let toggleTheme = (theme) => {
 };
 
 let setTheme = (theme) => {
-  transTheme();
-  setHighlight(theme);
-  setGiscusTheme(theme);
-
   if (theme) {
     document.documentElement.setAttribute("data-theme", theme);
-
+    
     // Add class to tables.
     let tables = document.getElementsByTagName("table");
     for (let i = 0; i < tables.length; i++) {
@@ -25,8 +22,8 @@ let setTheme = (theme) => {
         tables[i].classList.remove("table-dark");
       }
     }
-
-    // Set jupyter notebooks themes.
+    
+    // Set jupyter notebooks themes immediately
     let jupyterNotebooks = document.getElementsByClassName("jupyter-notebook-iframe-container");
     for (let i = 0; i < jupyterNotebooks.length; i++) {
       let bodyElement = jupyterNotebooks[i].getElementsByTagName("iframe")[0].contentWindow.document.body;
@@ -38,12 +35,13 @@ let setTheme = (theme) => {
         bodyElement.setAttribute("data-jp-theme-name", "JupyterLab Light");
       }
     }
-
   } else {
     document.documentElement.removeAttribute("data-theme");
   }
 
   localStorage.setItem("theme", theme);
+  setHighlight(theme);
+  setGiscusTheme(theme);
 
   // Updates the background of medium-zoom overlay.
   if (typeof medium_zoom !== "undefined") {
@@ -94,8 +92,8 @@ let initTheme = (theme) => {
       theme = "dark";
     }
   }
-
-  setTheme(theme);
+  setTheme(theme); // Don't use transition on initial load
 };
 
+// Initialize theme as early as possible
 initTheme(localStorage.getItem("theme"));
