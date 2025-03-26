@@ -1,1 +1,1 @@
-$(document).ready(function(){var r=$(".grid").masonry({gutter:10,horizontalOrder:!0,itemSelector:".grid-item"});r.imagesLoaded().progress(function(){r.masonry("layout")})});
+const initMasonry=()=>{const t=document.querySelector(".grid");if(!t)return;const n=new Masonry(t,{gutter:10,horizontalOrder:!0,itemSelector:".grid-item",percentPosition:!0,initLayout:!0});imagesLoaded(t,function(){n.layout()})};"loading"===document.readyState?document.addEventListener("DOMContentLoaded",initMasonry):initMasonry();
