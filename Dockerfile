@@ -1,11 +1,15 @@
-FROM bitnami/minideb:latest
+FROM ruby:3.3-bookworm
 
-Label MAINTAINER Amir Pourmand
+LABEL MAINTAINER="Amir Pourmand"
 
-RUN apt-get update -y
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    locales \
+    imagemagick \
+    build-essential \
+    zlib1g-dev \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
-# add locale
-RUN apt-get -y install locales
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen
@@ -13,27 +17,22 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# add ruby and jekyll
-RUN apt-get install --no-install-recommends ruby-full build-essential zlib1g-dev -y
-RUN apt-get install imagemagick -y
-
-# install python3 and jupyter
-RUN apt-get install python3-pip -y
+# install jupyter
 RUN python3 -m pip install jupyter --break-system-packages
 
-# install jekyll and dependencies
+# install jekyll and bundler
 RUN gem install jekyll bundler
-
-RUN mkdir /srv/jekyll
-
-ADD Gemfile /srv/jekyll
 
 WORKDIR /srv/jekyll
 
+# Copy Gemfile to container
+COPY Gemfile /srv/jekyll/
+
+# Install dependencies
 RUN bundle install
 
 # Set Jekyll environment
-ENV JEKYLL_ENV=production 
+ENV JEKYLL_ENV=production
 
 EXPOSE 8080
 
