@@ -55,7 +55,7 @@ However, [Google's 2025 Environmental Report](https://www.gstatic.com/gumdrop/su
 </div>
 
 
-The secret? The Montreal facility is an **[air-cooled data centre](https://vantage-dc.com/data-center-locations/north-america/montreal-i-canada/)** (similar to others in the region). It leverages the region's naturally cool climate to regulate temperature, eliminating the need for thirsty evaporative cooling towers.
+The secret? The Montreal facility is an **air-cooled data centre** (similar to [others in the region](https://vantage-dc.com/data-center-locations/north-america/montreal-i-canada/)). It leverages the region's naturally cool climate to regulate temperature, eliminating the need for thirsty evaporative cooling towers.
 
 By selecting this region, I'm ensuring that ChatTNG's operations aren't competing for scarce water resources while also running on clean energy.
 
