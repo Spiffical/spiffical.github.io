@@ -50,6 +50,9 @@ However, [Google's 2025 Environmental Report](https://www.gstatic.com/gumdrop/su
         <img src="/assets/img/blog_vertex/water_usage.png" width="700" alt="Water Usage Chart - Click to expand" />
     </a>
 </div>
+<div class="caption">
+    The water usage of Google's data centres in 2024. Source: <a href="https://www.gstatic.com/gumdrop/sustainability/google-2025-environmental-report.pdf">Google 2025 Environmental Report</a>
+</div>
 
 
 The secret? The Montreal facility is an **[air-cooled data centre](https://vantage-dc.com/data-center-locations/north-america/montreal-i-canada/)** (similar to others in the region). It leverages the region's naturally cool climate to regulate temperature, eliminating the need for thirsty evaporative cooling towers.
