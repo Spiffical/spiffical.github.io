@@ -13,7 +13,7 @@ categories: [tech]
     </div>
 </div>
 <div class="caption">
-    Projected growth of US data center electricity consumption. Source: <a href="https://escholarship.org/uc/item/32d6m0d1">escholarship.org</a>
+    Projected growth of US data centre electricity consumption. Source: <a href="https://escholarship.org/uc/item/32d6m0d1">escholarship.org</a>
 </div>
 
 [ChatTNG](http://www.chattng.com) is an interactive conversational AI project set in the Star Trek universe. Beyond just building an engaging experience, I wanted to ensure the underlying infrastructure aligned with sustainable principles that reflect both my own personal values and the utopian ideals of the Star Trek universe.
