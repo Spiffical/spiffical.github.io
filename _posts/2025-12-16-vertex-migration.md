@@ -39,6 +39,8 @@ For context, compare this to other popular cloud regions:
 
 Choosing the right region allows for drastically reducing the carbon footprint of every inference.
 
+It's also worth noting that Vertex AI hosts models from other providers, like Anthropic. While you can also select regions for these models, the [available locations](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/locations) are often more limited than for Google's native Gemini models. This can constrain your ability to optimize for carbon-free energy, so it's important to cross-reference model availability with regional CFE data.
+
 ## Addressing Water Consumption
 
 Another common concern with Gen AI is the significant water usage required for cooling data centres. It's a valid worry, especially in drought-prone areas.
