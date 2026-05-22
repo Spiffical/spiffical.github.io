@@ -1,6 +1,49 @@
-<div class="repo p-2 text-center">
-  <a href="https://github.com/{{ include.username }}">
-    <img class="repo-img-light w-100" alt="{{ include.username }}" src="https://github-readme-stats.vercel.app/api/?username={{ include.username }}&theme={{ site.repo_theme_light }}&show_icons=true">
-    <img class="repo-img-dark w-100" alt="{{ include.username }}" src="https://github-readme-stats.vercel.app/api/?username={{ include.username }}&theme={{ site.repo_theme_dark }}&show_icons=true">
+{% assign username_key = include.username | downcase %}
+{% assign user = include.user %}
+{% unless user.name or user.login %}
+  {% assign user = nil %}
+  {% for stats_user in site.data.github_stats.users %}
+    {% assign stats_user_slug = stats_user.slug %}
+    {% if stats_user_slug == username_key %}
+      {% assign user = stats_user %}
+    {% endif %}
+  {% endfor %}
+{% endunless %}
+{% assign display_name = user.name | default: include.username %}
+{% assign display_login = user.login | default: include.username %}
+
+<div class="repo p-2">
+  <a class="github-card github-user-card" href="https://github.com/{{ display_login }}" aria-label="{{ display_login }} on GitHub">
+    <div class="github-card-header">
+      <div>
+        <h3>{{ display_name }}</h3>
+        <span>@{{ display_login }}</span>
+      </div>
+      <i class="fab fa-github" aria-hidden="true"></i>
+    </div>
+    {%- if user.bio -%}
+      <p class="github-card-description">{{ user.bio }}</p>
+    {%- endif -%}
+    <dl class="github-stat-grid">
+      <div>
+        <dt>{{ user.public_repos | default: site.data.repositories.github_repos.size }}</dt>
+        <dd>Repositories</dd>
+      </div>
+      <div>
+        <dt>{{ user.followers | default: 0 }}</dt>
+        <dd>Followers</dd>
+      </div>
+      <div>
+        <dt>{{ user.total_stars | default: 0 }}</dt>
+        <dd>Stars</dd>
+      </div>
+      <div>
+        <dt>{{ user.total_forks | default: 0 }}</dt>
+        <dd>Forks</dd>
+      </div>
+    </dl>
+    {%- if site.data.github_stats.generated_at -%}
+      <div class="github-card-meta">Updated {{ site.data.github_stats.generated_at | date: "%b %-d, %Y" }}</div>
+    {%- endif -%}
   </a>
 </div>

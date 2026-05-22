@@ -1,0 +1,171 @@
+#!/usr/bin/env ruby
+
+require "json"
+require "net/http"
+require "time"
+require "uri"
+require "yaml"
+
+ROOT = File.expand_path("..", __dir__)
+REPOSITORIES_FILE = File.join(ROOT, "_data", "repositories.yml")
+OUTPUT_FILE = File.join(ROOT, "_data", "github_stats.json")
+
+LANGUAGE_COLORS = {
+  "CSS" => "#563d7c",
+  "C++" => "#f34b7d",
+  "HTML" => "#e34c26",
+  "JavaScript" => "#f1e05a",
+  "Jupyter Notebook" => "#da5b0b",
+  "Python" => "#3572A5",
+  "Ruby" => "#701516",
+  "Shell" => "#89e051",
+  "TypeScript" => "#3178c6"
+}.freeze
+
+def github_get(path)
+  uri = URI("https://api.github.com#{path}")
+  request = Net::HTTP::Get.new(uri)
+  request["Accept"] = "application/vnd.github+json"
+  request["User-Agent"] = "spiffical.github.io github stats updater"
+  request["X-GitHub-Api-Version"] = "2022-11-28"
+  request["Authorization"] = "Bearer #{ENV.fetch("GITHUB_TOKEN")}" if ENV["GITHUB_TOKEN"] && !ENV["GITHUB_TOKEN"].empty?
+
+  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+    http.request(request)
+  end
+
+  unless response.is_a?(Net::HTTPSuccess)
+    warn "GitHub API #{path} returned #{response.code}: #{response.body[0, 180]}"
+    return nil
+  end
+
+  JSON.parse(response.body)
+rescue StandardError => error
+  warn "GitHub API #{path} failed: #{error.message}"
+  nil
+end
+
+def paged_github_get(path)
+  page = 1
+  results = []
+
+  loop do
+    separator = path.include?("?") ? "&" : "?"
+    batch = github_get("#{path}#{separator}per_page=100&page=#{page}")
+    break unless batch.is_a?(Array) && !batch.empty?
+
+    results.concat(batch)
+    break if batch.length < 100
+
+    page += 1
+  end
+
+  results
+end
+
+def normalize_user(user, repos)
+  languages = repos.each_with_object(Hash.new(0)) do |repo, counts|
+    language = repo["language"]
+    counts[language] += 1 if language && !language.empty?
+  end
+
+  {
+    "login" => user["login"],
+    "name" => user["name"],
+    "bio" => user["bio"],
+    "html_url" => user["html_url"],
+    "avatar_url" => user["avatar_url"],
+    "public_repos" => user["public_repos"],
+    "followers" => user["followers"],
+    "following" => user["following"],
+    "created_at" => user["created_at"],
+    "updated_at" => user["updated_at"],
+    "total_stars" => repos.sum { |repo| repo["stargazers_count"].to_i },
+    "total_forks" => repos.sum { |repo| repo["forks_count"].to_i },
+    "top_languages" => languages.sort_by { |_, count| -count }.map do |language, count|
+      {
+        "name" => language,
+        "count" => count,
+        "color" => LANGUAGE_COLORS.fetch(language, "#858585")
+      }
+    end
+  }
+end
+
+def normalize_repo(repo, languages)
+  language = repo["language"]
+
+  {
+    "full_name" => repo["full_name"],
+    "name" => repo["name"],
+    "owner" => repo.dig("owner", "login"),
+    "description" => repo["description"],
+    "html_url" => repo["html_url"],
+    "homepage" => repo["homepage"],
+    "language" => language,
+    "language_color" => LANGUAGE_COLORS.fetch(language, "#858585"),
+    "languages" => languages || {},
+    "stargazers_count" => repo["stargazers_count"],
+    "forks_count" => repo["forks_count"],
+    "open_issues_count" => repo["open_issues_count"],
+    "license" => repo.dig("license", "spdx_id"),
+    "updated_at" => repo["updated_at"],
+    "pushed_at" => repo["pushed_at"]
+  }
+end
+
+def keyed_existing(collection)
+  case collection
+  when Array
+    collection.each_with_object({}) do |item, memo|
+      lookup_key = item["slug"] || item["key"]
+      memo[lookup_key] = item if lookup_key
+    end
+  when Hash
+    collection
+  else
+    {}
+  end
+end
+
+repositories = YAML.load_file(REPOSITORIES_FILE)
+github_users = Array(repositories["github_users"])
+github_repos = Array(repositories["github_repos"])
+existing = File.exist?(OUTPUT_FILE) ? JSON.parse(File.read(OUTPUT_FILE)) : {}
+users_by_key = keyed_existing(existing["users"])
+repos_by_key = keyed_existing(existing["repos"])
+
+output = {
+  "generated_at" => Time.now.utc.iso8601,
+  "users" => [],
+  "repos" => []
+}
+
+github_users.each do |username|
+  key = username.downcase
+  user = github_get("/users/#{username}")
+  repos = paged_github_get("/users/#{username}/repos?type=owner&sort=updated")
+
+  if user
+    users_by_key[key] = normalize_user(user, repos).merge("slug" => key)
+  else
+    warn "Keeping existing stats for user #{username}" if users_by_key[key]
+  end
+end
+
+github_repos.each do |repo_name|
+  repo = github_get("/repos/#{repo_name}")
+  languages = github_get("/repos/#{repo_name}/languages")
+
+  if repo
+    repos_by_key[repo_name] = normalize_repo(repo, languages).merge("slug" => repo_name)
+  else
+    warn "Keeping existing stats for repository #{repo_name}" if repos_by_key[repo_name]
+  end
+end
+
+output["users"] = github_users.filter_map { |username| users_by_key[username.downcase] }
+output["repos"] = github_repos.filter_map { |repo_name| repos_by_key[repo_name] }
+
+File.write(OUTPUT_FILE, "#{JSON.pretty_generate(output)}\n")
+puts "Wrote #{OUTPUT_FILE}"

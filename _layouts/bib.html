@@ -5,14 +5,37 @@
         <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}">
         {%- if entry.preview -%}
           {% if entry.preview contains '://' -%}
-          <img data-zoomable class="preview z-depth-1 rounded" src="{{ entry.preview }}">
+          <img data-zoomable class="preview z-depth-1 rounded" src="{{ entry.preview }}" loading="lazy" decoding="async">
           {%- else -%}
             {%- assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' -%}
+            {%- assign entry_basename = entry.preview | remove: ".gif" | remove: ".jpg" | remove: ".jpeg" | remove: ".png" | remove: ".tiff" -%}
+            {%- assign webm_path = entry_basename | append: ".webm" | prepend: "/assets/img/publication_preview/" -%}
+            {%- assign mp4_path = entry_basename | append: ".mp4" | prepend: "/assets/img/publication_preview/" -%}
+            {%- capture has_webm -%}{% file_exists {{ webm_path }} %}{%- endcapture -%}
+            {%- capture has_mp4 -%}{% file_exists {{ mp4_path }} %}{%- endcapture -%}
+            {%- if has_webm == "true" or has_mp4 == "true" -%}
+              <video
+                class="preview z-depth-1 rounded"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="metadata"
+                aria-label="{{ entry.preview }}">
+                {%- if has_webm == "true" -%}
+                  <source src="{{ webm_path | relative_url }}" type="video/webm">
+                {%- endif -%}
+                {%- if has_mp4 == "true" -%}
+                  <source src="{{ mp4_path | relative_url }}" type="video/mp4">
+                {%- endif -%}
+              </video>
+            {%- else -%}
             {% include figure.html
             path=entry_path
             class="preview z-depth-1 rounded"
             zoomable=true
             alt=entry.preview -%}
+            {%- endif -%}
           {%- endif -%}
         {%- elsif entry.abbr -%}
           {%- if site.data.venues[entry.abbr] -%}
@@ -190,16 +213,20 @@
           <div class="badges">
             {%- if site.badges.altmetric_badge %}
             <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"
-              {% if entry.eprint %}
-                data-arxiv-id="{{ entry.eprint }}"
-              {% elsif entry.doi %}
+              {% if entry.doi %}
                 data-doi="{{ entry.doi }}"
+              {% elsif entry.arxiv %}
+                data-arxiv-id="{{ entry.arxiv }}"
               {% elsif entry.altmetric %}
                 data-altmetric-id="{{ entry.altmetric }}"
               {% elsif entry.pmid %}
                 data-pmid="{{ entry.pmid }}"
               {% elsif entry.isbn %}
                 data-isbn="{{ entry.isbn }}"
+              {% elsif entry.eprint %}
+                {% unless entry.eprint contains "://" %}
+                  data-arxiv-id="{{ entry.eprint }}"
+                {% endunless %}
               {% endif %}
               ></span>
             {%- endif %}

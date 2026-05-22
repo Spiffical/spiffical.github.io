@@ -1,4 +1,18 @@
 {% assign repo_url =  include.repository | split: '/' %}
+{% assign repo = include.repo %}
+{% unless repo.full_name or repo.name %}
+  {% assign repo = nil %}
+  {% for stats_repo in site.data.github_stats.repos %}
+    {% assign stats_repo_slug = stats_repo.slug %}
+    {% if stats_repo_slug == include.repository %}
+      {% assign repo = stats_repo %}
+    {% endif %}
+  {% endfor %}
+{% endunless %}
+{% assign repo_href = repo.html_url %}
+{% unless repo_href %}
+  {% assign repo_href = include.repository | prepend: 'https://github.com/' %}
+{% endunless %}
 
 {% if site.data.repositories.github_users contains repo_url.first %}
   {% assign show_owner = false %}
@@ -6,9 +20,38 @@
   {% assign show_owner = true %}
 {% endif %}
 
-<div class="repo p-2 text-center">
-  <a href="https://github.com/{{ include.repository }}">
-    <img class="repo-img-light w-100" alt="{{ include.repository }}" src="https://github-readme-stats.vercel.app/api/pin/?username={{ repo_url[0] }}&repo={{ repo_url[1] }}&theme={{ site.repo_theme_light }}&show_owner={{ show_owner }}">
-    <img class="repo-img-dark w-100" alt="{{ include.repository }}" src="https://github-readme-stats.vercel.app/api/pin/?username={{ repo_url[0] }}&repo={{ repo_url[1] }}&theme={{ site.repo_theme_dark }}&show_owner={{ show_owner }}">
+<div class="repo p-2">
+  <a class="github-card github-repo-card" href="{{ repo_href }}" aria-label="{{ include.repository }} on GitHub">
+    <div class="github-card-header">
+      <div>
+        <h3>
+          {%- if show_owner -%}
+            {{ repo.full_name | default: include.repository }}
+          {%- else -%}
+            {{ repo.name | default: repo_url[1] }}
+          {%- endif -%}
+        </h3>
+      </div>
+      <i class="fab fa-github" aria-hidden="true"></i>
+    </div>
+    {%- if repo.description -%}
+      <p class="github-card-description">{{ repo.description }}</p>
+    {%- endif -%}
+    <div class="github-card-footer">
+      {%- if repo.language -%}
+        <span>
+          <span class="github-language-dot" style="background-color: {{ repo.language_color }}"></span>
+          {{ repo.language }}
+        </span>
+      {%- endif -%}
+      <span><i class="fas fa-star" aria-hidden="true"></i> {{ repo.stargazers_count | default: 0 }}</span>
+      <span><i class="fas fa-code-branch" aria-hidden="true"></i> {{ repo.forks_count | default: 0 }}</span>
+      {%- if repo.license -%}
+        <span>{{ repo.license }}</span>
+      {%- endif -%}
+    </div>
+    {%- if repo.updated_at -%}
+      <div class="github-card-meta">Updated {{ repo.updated_at | date: "%b %-d, %Y" }}</div>
+    {%- endif -%}
   </a>
 </div>
